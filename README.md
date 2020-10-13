@@ -4,24 +4,24 @@
 Raspbian Jessie では，NICデバイスの定義と設定を行う場所が別れている．
 ```
 // NIC デバイスの定義
- $ sudo vim /etc/network/interfaces
+$ sudo vim /etc/network/interfaces
   | auto eth0
   | iface eth0 inet manual
 
 // ネットワーク設定
- $ sudo vim /etc/dhcpcd.conf
+$ sudo vim /etc/dhcpcd.conf
   | interface eth0
   | static ip_address=192.168.10.150/24
   | static routers=192.168.10.1
   | static domain_name_servers=192.168.10.1
 
 // 再起動
- $ shutdown -r now
+$ shutdown -r now
 ```
 
 ## 無線LAN の場合
 ```
- $ sudo vim /etc/wpa_supplicant/wpa_supplicant.conf
+$ sudo vim /etc/wpa_supplicant/wpa_supplicant.conf
   | ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
   | update_config=1
   | 
@@ -33,7 +33,7 @@ Raspbian Jessie では，NICデバイスの定義と設定を行う場所が別�
   | }
 
 // 再起動
- $ shutdown -r now
+$ shutdown -r now
 ```
 
 # ブリッジデバイスの作成方法
@@ -41,13 +41,13 @@ Raspberry Pi のUSB ポートの一つに外付けNIC を接続し，NIC デバ�
 ## ブリッジデバイスの作成
 ```
 // まずはbridge-utils のインストール
- $ sudo apt-get install bridge-utls
+$ sudo apt-get install bridge-utls
 ```
 
 ## NIC の設定
 ```
 // ブリッジデバイスの定義
- $ sudo vim /etc/network/interfaces
+$ sudo vim /etc/network/interfaces
   | auto br0
   | iface br0 inet manual
   | 
@@ -56,7 +56,7 @@ Raspberry Pi のUSB ポートの一つに外付けNIC を接続し，NIC デバ�
   | bridge_maxwait 3
 
 // ネットワーク設定
- $ sudo vim /etc/dhcpcd.conf
+$ sudo vim /etc/dhcpcd.conf
   | # eth0, eth1 の設定
   | interface eth0
   | static ip_address=0.0.0.0
@@ -71,5 +71,5 @@ Raspberry Pi のUSB ポートの一つに外付けNIC を接続し，NIC デバ�
   | static domain_name_servers=192.168.10.1
 
 // 再起動
- $ shutdown -r now
+$ shutdown -r now
 ```
