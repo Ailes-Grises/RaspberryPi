@@ -42,6 +42,18 @@ Raspberry Pi のUSB ポートの一つに外付けNIC を接続し，NIC デバ�
 ```
 // まずはbridge-utils のインストール
 $ sudo apt-get install bridge-utls
+
+// IPフォワーディングを許可
+$ systemctl net.ipv4.ip_foward=1
+$ systemctl -p
+
+// ブリッジデバイスの作成
+$ brctl addbr br0
+
+// ブリッジデバイスbr0 に転送するNIC の設定
+$ brctl addif br0 eth0
+$ brctl addif br0 eth1
+$ brctl show
 ```
 
 ## NIC の設定
@@ -63,6 +75,9 @@ $ sudo vim /etc/dhcpcd.conf
   | 
   | interface eth1
   | static ip_address=0.0.0.0
+  |
+  | # あるいは以下の様に書いてもok.
+  | # denyinterfaces eth0 eth1
   | 
   | # br0 の設定
   | interface br0
